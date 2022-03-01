@@ -1,23 +1,51 @@
-import logo from './logo.svg';
+
 import './App.css';
+import React, {useState} from 'react'
+import { BadList } from './components/BadList';
+import { Form } from './components/Form';
+import { TaskList } from './components/TaskList';
+import { Title } from './components/Title';
+import { TotalHours } from './components/TotalHours';
 
 function App() {
+  const [taskList, setTaskList] = useState([]);
+  const [badList, setBadList] = useState([]);
+
+  const addNewTask = task => {
+    setTaskList([...taskList, task]);
+  }
+
+  const addBadList = task => {
+    setBadList([...badList, task]);
+  }
+
+  console.log(taskList);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="">
+      <div className="wrapper">
+        <div className="container">
+            {/* <!-- TOP TITLE --> */}
+            <Title />
+
+            {/* <!-- Form Box --> */}
+                
+            <Form addNewTask={addNewTask}/>
+                
+            {/* <!-- list area --> */}
+            <div className="row">
+
+                <TaskList taskList={taskList}/>
+                <BadList badList={badList}/>
+               
+                
+            </div>
+            
+            {/* Total HOurs */}
+            <TotalHours />
+
+        </div>
+      </div>
     </div>
   );
 }
