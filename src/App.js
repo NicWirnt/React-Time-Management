@@ -54,7 +54,7 @@ function App() {
   const savedHours = badList.reduce((subttl, item) => subttl + item.hr , 0);
   const ttlTaskHours = taskList.reduce((subttl, item) => subttl + item.hr, 0);
 
-  
+  const ttlHours = savedHours + ttlTaskHours;
 
   console.log("Task :", taskList);
   console.log("BadList :", badList);
@@ -68,7 +68,7 @@ function App() {
 
             {/* <!-- Form Box --> */}
                 
-            <Form addNewTask={addNewTask}/>
+            <Form addNewTask={addNewTask} ttlHours={ttlHours}/>
                 
             {/* <!-- list area --> */}
             <div className="row">
@@ -81,7 +81,7 @@ function App() {
             </div>
             
             {/* Total HOurs */}
-            <TotalHours total={savedHours + ttlTaskHours}/>
+            <TotalHours total={ttlHours}/>
 
         </div>
       </div>

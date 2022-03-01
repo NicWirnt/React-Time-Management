@@ -1,6 +1,8 @@
 import React, {useState} from 'react'
 
-export const Form = ({addNewTask}) => {
+export const Form = ({addNewTask, ttlHours}) => {
+
+    const weeklyHours = 24 * 7;
     const initialState = {
         task : "",
         hr: ""
@@ -19,11 +21,18 @@ export const Form = ({addNewTask}) => {
     };
 
     const handleOnSubmit = e => {
-        e.preventDefault();
+
+      e.preventDefault();
+      if(newTask.hr <1){
+        return alert("Please enter a valid number of hour")
+      }
+
+        if(ttlHours + newTask.hr > weeklyHours) {
+          return alert("You Have Reached Maximum Hours");
+        }
+        
         addNewTask(newTask);
         setNewTask(initialState);
-
-        
         document.getElementById("inlineFormInputGroupUsername").focus();
 
     }
@@ -37,7 +46,7 @@ export const Form = ({addNewTask}) => {
             onSubmit={handleOnSubmit}
             className="row row-cols-lg-auto g-3 align-items-center d-flex justify-content-center g-3">
                 <div className="col-12">
-                  <label className="visually-hidden" for="inlineFormInputGroupUsername">Your Task</label>
+                  <label className="visually-hidden">Your Task</label>
                   <div className="input-group">
                     
                     <input name = "task" type="text"
@@ -49,7 +58,7 @@ export const Form = ({addNewTask}) => {
                 </div>
 
                 <div className="col-12">
-                    <label className="visually-hidden" for="inlineFormInputGroupUsername">Hours</label>
+                    <label className="visually-hidden">Hours</label>
                     <div className="input-group">
                       
                       <input name = "hr" type="text" className="form-control"
