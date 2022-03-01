@@ -15,11 +15,44 @@ function App() {
     setTaskList([...taskList, task]);
   }
 
-  const addBadList = task => {
-    setBadList([...badList, task]);
+  // delete Task List 
+  const handleOnDeleteTaskList = i => {
+      console.log(i);
+      
+      if(window.confirm("Are you sure you want to delete this task?")) {
+      const newArg = taskList.filter((item, index)=> index !== i) 
+      setTaskList(newArg);
+      }
   }
 
-  console.log(taskList);
+  // take item from taskList and put in the Badlist
+  const markAsNotToDo = i  => {
+    const selectedItem = taskList[i];
+    setBadList([...badList, selectedItem]);
+    const newArg = taskList.filter((item, index)=> index !== i) 
+    setTaskList(newArg);
+  }
+
+  // Delete Bad List
+  const handleOnDeleteBadList = i => {
+    console.log(i);
+    
+    if(window.confirm("Are you sure you want to delete this bad list?")) {
+    const newArg = badList.filter((item, index)=> index !== i) 
+    setBadList(newArg);
+    }
+  }
+
+  //take item from badlist and put in the task list
+  const markAsToDo = i  => {
+    const selectedItem = badList[i];
+    setTaskList([...taskList, selectedItem]);
+    const newArg = badList.filter((item, index)=> index !== i) 
+    setBadList(newArg);
+  }
+
+  console.log("Task :", taskList);
+  console.log("BadList :", badList);
 
   return (
     <div className="">
@@ -35,8 +68,9 @@ function App() {
             {/* <!-- list area --> */}
             <div className="row">
 
-                <TaskList taskList={taskList}/>
-                <BadList badList={badList}/>
+                <TaskList taskList={taskList} handleOnDeleteTaskList={handleOnDeleteTaskList} markAsNotToDo={markAsNotToDo} />
+                
+                <BadList badList={badList} handleOnDeleteBadList={handleOnDeleteBadList} markAsToDo={markAsToDo}/>
                
                 
             </div>

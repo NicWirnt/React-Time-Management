@@ -1,14 +1,9 @@
 import React, { useState } from 'react'
 
-export const TaskList = ({taskList}) => {
- 
-  const [dItem, setDItem] = useState();
+export const TaskList = ({taskList, handleOnDeleteTaskList, markAsNotToDo}) => {
 
-  const deleteItem = (val) =>{
-    console.log(val)
-  }
   
-  console.log(taskList)
+  
   return (
                 <div className="col-md-6 mb-5">
                     <h2 className="text-center ">Task List</h2>
@@ -19,15 +14,15 @@ export const TaskList = ({taskList}) => {
                             
                             {taskList.map((item, i) => {
                                return (
-                               <tr>
+                               <tr key={i}>
                                 <td>
                                     <input type="checkbox" name="" id="" />
                                     {item.task}
                                 </td>
                                 <td>{item.hr}hr</td>
                                 <td class="text-end">
-                                    <button class="btn btn-sm btn-danger" onClick= ""><i  class="fas fa-trash-alt" title ="Delete"></i></button>
-                                    <button class="btn btn-sm btn-warning" onClick="moveItem(${i})"><i class="fas fa-long-arrow-right" title="Mark as Bad List"></i></button>
+                                    <button class="btn btn-sm btn-danger" onClick= { () => handleOnDeleteTaskList(i)}><i  class="fas fa-trash-alt" title ="Delete"></i></button>
+                                    <button class="btn btn-sm btn-warning" onClick={() => markAsNotToDo(i)}> <i class="fas fa-long-arrow-right" title="Mark as Bad List"></i></button>
                                 </td>
                                 </tr>) 
                                 
