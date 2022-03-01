@@ -51,6 +51,11 @@ function App() {
     setBadList(newArg);
   }
 
+  const savedHours = badList.reduce((subttl, item) => subttl + item.hr , 0);
+  const ttlTaskHours = taskList.reduce((subttl, item) => subttl + item.hr, 0);
+
+  
+
   console.log("Task :", taskList);
   console.log("BadList :", badList);
 
@@ -70,13 +75,13 @@ function App() {
 
                 <TaskList taskList={taskList} handleOnDeleteTaskList={handleOnDeleteTaskList} markAsNotToDo={markAsNotToDo} />
                 
-                <BadList badList={badList} handleOnDeleteBadList={handleOnDeleteBadList} markAsToDo={markAsToDo}/>
+                <BadList badList={badList} handleOnDeleteBadList={handleOnDeleteBadList} markAsToDo={markAsToDo} savedHours={savedHours}/>
                
                 
             </div>
             
             {/* Total HOurs */}
-            <TotalHours />
+            <TotalHours total={savedHours + ttlTaskHours}/>
 
         </div>
       </div>

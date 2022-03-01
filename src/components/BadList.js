@@ -1,6 +1,6 @@
 import React from 'react'
 
-export const BadList = ({badList, handleOnDeleteBadList, markAsToDo}) => {
+export const BadList = ({badList, handleOnDeleteBadList, markAsToDo, savedHours}) => {
   return (
                 <div className="col-md-6">
                     <h2 className="text-center">Bad List</h2>
@@ -18,9 +18,9 @@ export const BadList = ({badList, handleOnDeleteBadList, markAsToDo}) => {
                                 <td>{item.hr}hr</td>
                                 <td class="text-end">
                                     
-                                    <button class="btn btn-sm btn-warning" > <i class="fas fa-long-arrow-left"  onClick= {()=> markAsToDo(i)}title="Mark as Bad List"></i></button>
+                                    <button class="btn btn-sm btn-warning" onClick= {()=> markAsToDo(i)}> <i class="fas fa-long-arrow-left" title="Mark as Bad List"></i></button>
 
-                                    <button class="btn btn-sm btn-danger" ><i  class="fas fa-trash-alt" onClick={() => handleOnDeleteBadList(i)} title ="Delete"></i></button>
+                                    <button class="btn btn-sm btn-danger" onClick={() => handleOnDeleteBadList(i)} ><i  class="fas fa-trash-alt" title ="Delete"></i></button>
                                 </td>
                                 </tr>) 
                                 
@@ -31,7 +31,7 @@ export const BadList = ({badList, handleOnDeleteBadList, markAsToDo}) => {
                           </table>
                     </div>
                     <div className="ttl-bad text-end text-danger">
-                        Total time saved = <span id="totalSaved" >0</span>hrs
+                        Total time saved = <span id="totalSaved" >{savedHours}</span>hrs
                     </div>
 
                 </div>
