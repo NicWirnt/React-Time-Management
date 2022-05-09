@@ -1,17 +1,40 @@
 import "./App.css";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { BadList } from "./components/BadList";
 import { Form } from "./components/Form";
 import { TaskList } from "./components/TaskList";
 import { Title } from "./components/Title";
 import { TotalHours } from "./components/TotalHours";
+import { postTasks, fetchTask } from "./helper/axiosHelper";
 
 function App() {
   const [taskList, setTaskList] = useState([]);
   const [badList, setBadList] = useState([]);
+  const [isPedning, setIsPending] = useState(false);
+  const [response, setResponse] = useState({});
 
-  const addNewTask = (task) => {
-    setTaskList([...taskList, task]);
+  useEffect(async () => {
+    const getTask = async () => {
+      setIsPending(true);
+      const { status, result, message } = await fetchTask();
+      setIsPending(false);
+
+      result === "error" && setResponse({ status, result, message });
+
+      result?.length && setTaskList(result);
+
+      console.log(result);
+    };
+
+    getTask();
+  }, []);
+
+  const addNewTask = async (task) => {
+    setIsPending(true);
+    const result = await postTasks(task);
+    setIsPending(false);
+    console.log(result);
+    // setTaskList([...taskList, task]);
   };
 
   // delete Task List
@@ -64,6 +87,18 @@ function App() {
         <div className="container">
           {/* <!-- TOP TITLE --> */}
           <Title />
+
+          {/* feedback message */}
+          {isPedning && (
+            <div className="d-flex justify-content-center">
+              <div className="spinner-border text-primary" role="status">
+                <span className="visually-hidden">Loading...</span>
+              </div>
+            </div>
+          )}
+          {response?.message && (
+            <div className="alert alert-danger">{response.message} </div>
+          )}
 
           {/* <!-- Form Box --> */}
 
